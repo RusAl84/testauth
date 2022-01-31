@@ -1,25 +1,28 @@
 <template>
   <q-page class="flex flex-center">
-    <q-card class="full-width">
-      <q-card-section>
+          <q-card-section>
         {{auth}}
       </q-card-section>
       <q-card-actions>
         <q-input v-model="auth"></q-input>
         <q-btn>Авторизация</q-btn>
       </q-card-actions>
+    <q-card class="flex flex-center">
+
       <q-card-section>
-        <div class="q-pa-md q-gutter-sm">
-        <q-btn color="red" @click="sendBtn('red')"/>
-        <q-btn color="blue" @click="sendBtn('blue')"/>
-        <q-btn color="green" @click="sendBtn('green')"/>
+      <div v-for="i in 4" :key="i" class="flex">
+        <div v-for="j in 4" :key="j" class="q-pa-md q-gutter-md">
+          <q-btn size="md" :style="{'background':colors[(i-1)*4+j-1]}" @click="sendBtn(colors[(i-1)*4+j-1])"></q-btn>
         </div>
+      </div>
       </q-card-section>
 
     </q-card>
   </q-page>
 </template>
-
+        // <q-btn :style="{'background':colors[0]}" @click="sendBtn(colors[0])"/>
+        // <q-btn :style="{'background':colors[id+1]}" @click="sendBtn(colors[id+1])"/>
+        // <q-btn :style="{'background':colors[id+2]}" @click="sendBtn(colors[id+2])"/>
 <script>
 import { defineComponent, computed, ref } from 'vue';
 import { useStore } from 'vuex'
@@ -29,22 +32,40 @@ export default defineComponent({
   name: 'PageIndex',
   setup(){
     const $store = useStore()
+    let colors = ['maroon',
+    'red',
+    'purple',
+    'fuchsia',
+    'green',
+    'olive',
+    'yellow',
+    'navy',
+    'blue',
+    'teal',
+    'aqua',
+    'white',
+    'black',
+    'gray',
+    'orange',
+    'aquamarine']	
+    let intervalCtx = 0
     const auth = computed({
       get: () => $store.state.mes.auth,
       set: val => {
         $store.commit('mes/updateAuth', val)
       }
       }) 
-    let colors = ref('black') 
+    
     return {
-      auth, colors
+      auth, colors, intervalCtx
       //  <q-btn :style="{'background': colors}"/>
     }
   },
   methods:{
   async getColor(id){
       try{
-        color =  await api.getColor(id)  
+        const color =  await api.getColor(id)  
+        console.log(color)
         return color 
       }catch (e) 
       {
@@ -66,6 +87,15 @@ export default defineComponent({
         console.log(e)
       }
     },
+  },
+async  mounted() {
+      // this.colors.length = 0;
+      for (var i = 0; i < 16; i++) { 
+      var color = await api.getColor(i)
+      console.log(color)
+      this.colors.push(color)
+      }
+      // this.$forceUpdate()
 
   }
 })
