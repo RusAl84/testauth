@@ -1,28 +1,22 @@
 <template>
   <q-page class="flex flex-center">
-          <q-card-section>
-        {{auth}}
-      </q-card-section>
-      <q-card-actions>
-        <q-input v-model="auth"></q-input>
-        <q-btn>Авторизация</q-btn>
-      </q-card-actions>
-    <q-card class="flex flex-center">
-
-      <q-card-section>
-      <div v-for="i in 4" :key="i" class="flex">
-        <div v-for="j in 4" :key="j" class="q-pa-md q-gutter-md">
-          <q-btn size="md" :style="{'background':colors[(i-1)*4+j-1]}" @click="sendBtn(colors[(i-1)*4+j-1])"></q-btn>
+    <div>
+    <div><h5>Введите графический ключ</h5></div>
+      <div>
+      <q-card class="flex flex-center">
+        <q-card-section>
+        <div v-for="i in 4" :key="i" class="flex">
+          <div v-for="j in 4" :key="j" class="q-pa-md q-gutter-md">
+            <q-btn size="md" :style="{'background':colors[(i-1)*4+j-1]}" @click="sendBtn(colors[(i-1)*4+j-1])"></q-btn>
+          </div>
         </div>
+        </q-card-section>
+      </q-card>
       </div>
-      </q-card-section>
-
-    </q-card>
+    </div>
   </q-page>
 </template>
-        // <q-btn :style="{'background':colors[0]}" @click="sendBtn(colors[0])"/>
-        // <q-btn :style="{'background':colors[id+1]}" @click="sendBtn(colors[id+1])"/>
-        // <q-btn :style="{'background':colors[id+2]}" @click="sendBtn(colors[id+2])"/>
+
 <script>
 import { defineComponent, computed, ref } from 'vue';
 import { useStore } from 'vuex'
@@ -79,8 +73,9 @@ export default defineComponent({
         console.log(result)
         if (result.length==8){
           this.auth=1
-          console.log("Ёжики пришли")
-          alert("Ёжики пришли")
+          // console.log("Ёжики пришли")
+          // alert("Ёжики пришли")
+          this.$router.push('/')
         }
       }catch (e) 
       {

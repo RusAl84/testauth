@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Ёжтаризация
+          Convect Messenger
         </q-toolbar-title>
 
-        <div> v 40%</div>
+        <div> v 1.1</div>
       </q-toolbar>
     </q-header>
 
@@ -28,7 +28,7 @@
         <q-item-label
           header
         >
-          Ёжссылки
+          ссылки
         </q-item-label>
 
         <EssentialLink
